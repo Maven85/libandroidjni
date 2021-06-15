@@ -22,6 +22,7 @@
 #include "JNIBase.h"
 #include "Context.h"
 #include "Intent.h"
+#include "PictureInPictureParams.h"
 
 class CJNIWindowManager;
 class CVariant;
@@ -41,8 +42,12 @@ public:
   // Deprecated in API level 26
   static bool requestVisibleBehind(bool visible);
   static CJNIView findViewById(const int id);
+  static void enterPictureInPictureMode();
+  static bool enterPictureInPictureMode(const CJNIPictureInPictureParams &params);
 
   virtual void onVisibleBehindCanceled() = 0;
+  virtual void onMultiWindowModeChanged(bool isInMultiWindowMode) = 0;
+  virtual void onPictureInPictureModeChanged(bool isInPictureInPictureMode) = 0;
 
 private:
   CJNIActivity();

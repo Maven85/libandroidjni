@@ -70,3 +70,21 @@ CJNIView CJNIActivity::findViewById(const int id)
     "findViewById", "(I)Landroid/view/View;", id);
 }
 
+void CJNIActivity::enterPictureInPictureMode()
+{
+  if (CJNIBase::GetSDKVersion() < 24)
+    return;
+
+  call_method<void>(m_context,
+    "enterPictureInPictureMode", "()V");
+}
+
+bool CJNIActivity::enterPictureInPictureMode(const CJNIPictureInPictureParams &params)
+{
+  if (CJNIBase::GetSDKVersion() < 24)
+    return false;
+
+  return call_method<jboolean>(m_context,
+    "enterPictureInPictureMode", "(Landroid/app/PictureInPictureParams;)Z",
+                    params.get_raw());
+}
